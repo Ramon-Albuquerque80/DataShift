@@ -123,5 +123,6 @@ namespace DataShift.Login_Cadastro
 
             this.Hide();
         }
+
     }
 }

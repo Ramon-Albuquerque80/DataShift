@@ -36,6 +36,7 @@
             this.textBoxProcurar = new System.Windows.Forms.TextBox();
             this.buttonProcurar = new System.Windows.Forms.Button();
             this.panelDesktop = new System.Windows.Forms.Panel();
+            this.buttonProducao = new System.Windows.Forms.Button();
             this.GridDados = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonNovo = new System.Windows.Forms.Button();
@@ -126,6 +127,7 @@
             // panelDesktop
             // 
             this.panelDesktop.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panelDesktop.Controls.Add(this.buttonProducao);
             this.panelDesktop.Controls.Add(this.GridDados);
             this.panelDesktop.Controls.Add(this.panel1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -133,6 +135,16 @@
             this.panelDesktop.Name = "panelDesktop";
             this.panelDesktop.Size = new System.Drawing.Size(600, 370);
             this.panelDesktop.TabIndex = 2;
+            // 
+            // buttonProducao
+            // 
+            this.buttonProducao.Location = new System.Drawing.Point(480, 337);
+            this.buttonProducao.Name = "buttonProducao";
+            this.buttonProducao.Size = new System.Drawing.Size(108, 21);
+            this.buttonProducao.TabIndex = 5;
+            this.buttonProducao.Text = "Adicionar produção";
+            this.buttonProducao.UseVisualStyleBackColor = true;
+            this.buttonProducao.Click += new System.EventHandler(this.buttonProducao_Click);
             // 
             // GridDados
             // 
@@ -222,5 +234,6 @@
         private System.Windows.Forms.Button buttonExcluir;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView GridDados;
+        private System.Windows.Forms.Button buttonProducao;
     }
 }

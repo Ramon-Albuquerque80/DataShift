@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataShift.Turnos;
 using DataShift.Produtos;
+using DataShift.Producao;
 
 namespace DataShift.Menu_Principal
 {
@@ -192,6 +193,19 @@ namespace DataShift.Menu_Principal
                     IdSelecionada = 0;
                 }
             }
+        }
+
+        private void buttonProducao_Click(object sender, EventArgs e)
+        {
+           
+            if (IdSelecionada == 0 || GridDados.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, selecione um produto na tabela primeiro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            CadastroProducao TelaRegistro = new CadastroProducao(IdSelecionada, GridDados.CurrentRow.Cells["NOME"].Value.ToString());
+            TelaRegistro.ShowDialog();
         }
     }
 }
