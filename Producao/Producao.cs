@@ -4,15 +4,15 @@ namespace DataShift.Producao
 {
     public class Producao
     {
-        public int Id { get; set; }
-        public int ProdutoId { get; set; }
-        public int TurnoId { get; set; }
-        public int Quantidade { get; set; }
+        public int ID_Registro { get; set; }
+        public DateTime DataRegistro { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFim { get; set; }
-        public DateTime DataRegistro { get; set; }
         public TimeSpan TempoTotal { get; set; }
+        public int QtdProduzido { get; set; }
 
-        public Producao() { }
+        public int IdProdutoRegistro { get; set; }
+        public int IdUsuarioRegistro { get; set; }
+        public int IdTurnoRegistro { get; set; }
     }
 }

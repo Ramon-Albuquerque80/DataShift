@@ -16,7 +16,7 @@ namespace Relatorios
     {
 
         // Conexão com o banco de produtos
-        private string Conexao = "Server=localhost;Database=DataShiftDB;Uid=root;Pwd=senha1234321;";
+        private string Conexao = "Server=localhost;Database=DataShiftDB;Uid=root;Pwd=12345678;";
 
         // Método específico para buscar dados do gráfico
         public List<DadosGrafico> BuscarDadosParaGrafico(int idProduto)

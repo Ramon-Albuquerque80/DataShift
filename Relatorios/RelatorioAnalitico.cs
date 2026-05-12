@@ -22,7 +22,7 @@ namespace Relatorios
 
             //Busca os dados no Banco
             RelatorioDAO dao = new RelatorioDAO();
-            List<DadosGrafico> dados = dao.BuscarDadosParaGrafico(produtoSelecionado.ID);
+            List<DadosGrafico> dados = dao.BuscarDadosParaGrafico(produtoSelecionado.ID_PRODUTO);
 
             if (dados.Count == 0)
             {
@@ -65,7 +65,7 @@ namespace Relatorios
             Console.WriteLine($"Média de tempo: {Math.Round(media, 0)} minutos");
             Console.WriteLine($"Total de registros: {dados.Count}");
 
-            List<DadosDetalhados> dadosCompletos = dao.BuscarHistoricoCompleto(produtoSelecionado.ID);
+            List<DadosDetalhados> dadosCompletos = dao.BuscarHistoricoCompleto(produtoSelecionado.ID_PRODUTO);
 
             AnsiConsole.WriteLine();
 

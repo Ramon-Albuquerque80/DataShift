@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DataShift.Usuarios;
 
 namespace DataShift.Login_Cadastro
 {
@@ -79,7 +80,6 @@ namespace DataShift.Login_Cadastro
 
             try
             {
-                // Cria o pacote de dados
                 Usuario novoUsuario = new Usuario();
                 novoUsuario.Nome = TxtBoxNome.Text; 
                 novoUsuario.Email = TxtBoxEmail.Text;
@@ -96,7 +96,6 @@ namespace DataShift.Login_Cadastro
             }
             catch (Exception ex)
             {
-                // Mostra o erro se o banco falhar
                 MessageBox.Show("Erro: " + ex.Message);
             }
         }

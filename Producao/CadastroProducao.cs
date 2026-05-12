@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
+
 namespace DataShift.Producao
 {
     public partial class CadastroProducao : Form
@@ -56,17 +57,19 @@ namespace DataShift.Producao
                     return;
                 }
 
-                
+
                 Producao p = new Producao();
-                p.ProdutoId = _produtoId;
-                p.TurnoId = Sessao.TurnoId;
+
+                p.IdProdutoRegistro = _produtoId;      
+                p.IdUsuarioRegistro = Sessao.UsuarioId;
+                p.IdTurnoRegistro = Sessao.TurnoId;
 
                 if (!int.TryParse(textBoxQuantidade.Text, out int qtd))
                 {
                     MessageBox.Show("Quantidade deve ser um número inteiro!");
                     return;
                 }
-                p.Quantidade = qtd;
+                p.QtdProduzido = qtd;
 
                 
                 try

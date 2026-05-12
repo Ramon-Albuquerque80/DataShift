@@ -1,57 +1,54 @@
 ﻿using System;
+using Npgsql;
 using System.Collections.Generic;
-using System.Data;
-using MySql.Data.MySqlClient;
 
 namespace DataShift.Turnos
 {
     public class TurnoDAO
     {
-        private string stringConexao = "server=localhost;database=DataShiftDB;uid=root;pwd=senha1234321";
-
-        public void CadastrarTurno(Turno turno)
-        {
-            using (MySqlConnection conexao = new MySqlConnection(stringConexao))
-            {
-                conexao.Open();
-
-                string query = "INSERT INTO turnos (LIDER, PERIODO, INICIO, FIM) VALUES ( @lider, @periodo, @inicio, @fim)";
-
-                using (MySqlCommand cmd = new MySqlCommand(query, conexao))
-                {
-                    cmd.Parameters.AddWithValue("@lider", turno.Lider);
-                    cmd.Parameters.AddWithValue("@periodo", turno.Periodo);
-                    cmd.Parameters.AddWithValue("@inicio", turno.Inicio);
-                    cmd.Parameters.AddWithValue("@fim", turno.Fim);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        private string stringConexao = "Server=localhost;Port=5432;Database=DataShift;User Id=postgres;Password=12345678;";
 
         public List<Turno> ListarTodos()
         {
             List<Turno> lista = new List<Turno>();
-            using (MySqlConnection conexao = new MySqlConnection(stringConexao))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
                 conexao.Open();
-                string query = "SELECT * FROM turnos";
-                using (MySqlCommand cmd = new MySqlCommand(query, conexao))
-                using (MySqlDataReader leitor = cmd.ExecuteReader())
+                string query = "SELECT id_turno, periodo, inicio, fim FROM turno ORDER BY periodo";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
+                using (NpgsqlDataReader leitor = cmd.ExecuteReader())
                 {
                     while (leitor.Read())
                     {
                         Turno t = new Turno();
-                        t.Id = leitor.GetInt32("ID");
-                        t.Periodo = leitor["PERIODO"].ToString();
-                        t.Lider = leitor["LIDER"].ToString();
-                        t.Inicio = leitor.GetTimeSpan("INICIO"); // O MySQL devolve TimeSpan direto
-                        t.Fim = leitor.GetTimeSpan("FIM");
+                        t.Id = leitor.GetInt32(0);
+                        t.Periodo = leitor.GetString(1);
+                        t.Inicio = leitor.GetTimeSpan(2);
+                        t.Fim = leitor.GetTimeSpan(3);
                         lista.Add(t);
                     }
                 }
             }
             return lista;
+        }
+
+        public void CadastrarTurno(Turno t)
+        {
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
+            {
+                conexao.Open();
+                string query = "INSERT INTO turno (periodo, inicio, fim) VALUES (@periodo, @inicio, @fim)";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@periodo", t.Periodo);
+                    cmd.Parameters.AddWithValue("@inicio", t.Inicio);
+                    cmd.Parameters.AddWithValue("@fim", t.Fim);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

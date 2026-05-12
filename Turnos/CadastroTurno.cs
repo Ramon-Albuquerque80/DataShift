@@ -1,18 +1,12 @@
-﻿using System;
+﻿using DataShift.Turnos;
+using Npgsql;
+using System;
 using System.Windows.Forms;
-using DataShift.Turnos;
 
 namespace DataShift
 {
     public partial class CadastroTurno : Form
     {
-        public CadastroTurno()
-        {
-            InitializeComponent();
-            
-        }
-
-       
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
             try

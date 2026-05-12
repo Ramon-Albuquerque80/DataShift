@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelMenu = new System.Windows.Forms.Panel();
+            this.panelMenuEsquerdo = new System.Windows.Forms.Panel();
             this.BtnProdutos = new System.Windows.Forms.Button();
             this.buttonAdicionar = new System.Windows.Forms.Button();
             this.comboTurnos = new System.Windows.Forms.ComboBox();
@@ -42,24 +42,26 @@
             this.buttonNovo = new System.Windows.Forms.Button();
             this.buttonExcluir = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
-            this.panelMenu.SuspendLayout();
+            this.BtnRelatorio = new System.Windows.Forms.Button();
+            this.panelMenuEsquerdo.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
             this.panelDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridDados)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelMenu
+            // panelMenuEsquerdo
             // 
-            this.panelMenu.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.panelMenu.Controls.Add(this.BtnProdutos);
-            this.panelMenu.Controls.Add(this.buttonAdicionar);
-            this.panelMenu.Controls.Add(this.comboTurnos);
-            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(200, 450);
-            this.panelMenu.TabIndex = 0;
+            this.panelMenuEsquerdo.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panelMenuEsquerdo.Controls.Add(this.BtnRelatorio);
+            this.panelMenuEsquerdo.Controls.Add(this.BtnProdutos);
+            this.panelMenuEsquerdo.Controls.Add(this.buttonAdicionar);
+            this.panelMenuEsquerdo.Controls.Add(this.comboTurnos);
+            this.panelMenuEsquerdo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelMenuEsquerdo.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuEsquerdo.Name = "panelMenuEsquerdo";
+            this.panelMenuEsquerdo.Size = new System.Drawing.Size(200, 450);
+            this.panelMenuEsquerdo.TabIndex = 0;
             // 
             // BtnProdutos
             // 
@@ -70,7 +72,6 @@
             this.BtnProdutos.Size = new System.Drawing.Size(200, 40);
             this.BtnProdutos.TabIndex = 2;
             this.BtnProdutos.Text = "Produtos";
-            this.BtnProdutos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProdutos.UseVisualStyleBackColor = true;
             this.BtnProdutos.Click += new System.EventHandler(this.BtnProdutos_Click);
             // 
@@ -105,7 +106,7 @@
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitleBar.Location = new System.Drawing.Point(200, 0);
             this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(600, 80);
+            this.panelTitleBar.Size = new System.Drawing.Size(600, 44);
             this.panelTitleBar.TabIndex = 1;
             // 
             // textBoxProcurar
@@ -131,9 +132,9 @@
             this.panelDesktop.Controls.Add(this.GridDados);
             this.panelDesktop.Controls.Add(this.panel1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktop.Location = new System.Drawing.Point(200, 80);
+            this.panelDesktop.Location = new System.Drawing.Point(200, 44);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(600, 370);
+            this.panelDesktop.Size = new System.Drawing.Size(600, 406);
             this.panelDesktop.TabIndex = 2;
             // 
             // buttonProducao
@@ -153,7 +154,7 @@
             this.GridDados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GridDados.Location = new System.Drawing.Point(0, 30);
             this.GridDados.Name = "GridDados";
-            this.GridDados.Size = new System.Drawing.Size(600, 340);
+            this.GridDados.Size = new System.Drawing.Size(600, 376);
             this.GridDados.TabIndex = 4;
             this.GridDados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDados_CellClick);
             // 
@@ -199,6 +200,17 @@
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
+            // BtnRelatorio
+            // 
+            this.BtnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRelatorio.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnRelatorio.Location = new System.Drawing.Point(0, 110);
+            this.BtnRelatorio.Name = "BtnRelatorio";
+            this.BtnRelatorio.Size = new System.Drawing.Size(200, 40);
+            this.BtnRelatorio.TabIndex = 3;
+            this.BtnRelatorio.Text = "Relatorios";
+            this.BtnRelatorio.UseVisualStyleBackColor = true;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,10 +218,10 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelTitleBar);
-            this.Controls.Add(this.panelMenu);
+            this.Controls.Add(this.panelMenuEsquerdo);
             this.Name = "MainMenu";
-            this.Text = "MainMenu";
-            this.panelMenu.ResumeLayout(false);
+            this.Text = "Data Shift";
+            this.panelMenuEsquerdo.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
             this.panelDesktop.ResumeLayout(false);
@@ -221,7 +233,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.Panel panelMenuEsquerdo;
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.ComboBox comboTurnos;
@@ -235,5 +247,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView GridDados;
         private System.Windows.Forms.Button buttonProducao;
+        private System.Windows.Forms.Button BtnRelatorio;
     }
 }

@@ -1,132 +1,86 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Npgsql;
 using System.Data;
 
 namespace DataShift.Produtos
 {
     public class ProdutoDAO
     {
-        private string Conexao = "Server=localhost;Database=DataShiftDB;Uid=root;Pwd=senha1234321;";
+        private string stringConexao = "Server=localhost;Port=5432;Database=DataShift;User Id=postgres;Password=12345678;";
 
-        public void CadastrarProduto(Produtos produto, int idTurno)
+        public DataTable ListarParaGrid()
         {
-            using (MySqlConnection ponte = new MySqlConnection(Conexao))
+            DataTable tabela = new DataTable();
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-                try
+                conexao.Open();
+     
+                string query = "SELECT id_produto AS ID, nome AS NOME, categoria AS CATEGORIA, preco_uni AS PRECO FROM produto";
+
+                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, conexao))
                 {
-                    ponte.Open();
-
-                    string query = "INSERT INTO produtos (Nome, Preco, Categoria, Perecivel, TURNO_ID) VALUES (@NOME, @PRECO, @TIPO, @PERECIVEL, @TURNO_ID)";
-
-                    MySqlCommand cmd = new MySqlCommand(query, ponte);
-                    cmd.Parameters.AddWithValue("@NOME", produto.NOME);
-                    cmd.Parameters.AddWithValue("@PRECO", produto.PRECO);
-
-                    cmd.Parameters.AddWithValue("@TIPO", produto.TIPO);
-                    cmd.Parameters.AddWithValue("@PERECIVEL", produto.PERECIVEL);
-
-                    cmd.Parameters.AddWithValue("@TURNO_ID", idTurno);
-
-                    cmd.ExecuteNonQuery();
+                    adapter.Fill(tabela);
                 }
-                catch (Exception ex)
+            }
+            return tabela;
+        }
+
+        public void Inserir(Produtos p)
+        {
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
+            {
+                conexao.Open();
+                string query = @"INSERT INTO produto (nome, categoria, peso, preco_uni, id_usuario_produto) 
+                                VALUES (@nome, @cat, @peso, @preco, @idUser)";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
                 {
-                    Console.WriteLine("Erro ao cadastrar produto: " + ex.Message);
-                    throw;
+                    cmd.Parameters.AddWithValue("@nome", p.NOME);
+                    cmd.Parameters.AddWithValue("@cat", p.CATEGORIA);
+                    cmd.Parameters.AddWithValue("@peso", p.PESO);
+                    cmd.Parameters.AddWithValue("@preco", p.PRECO);
+                    cmd.Parameters.AddWithValue("@idUser", Sessao.UsuarioId);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
         public void AtualizarProduto(Produtos p)
         {
-            using (MySqlConnection ponte = new MySqlConnection(Conexao))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-                try
-                {
-                    ponte.Open();
-                    string query = "UPDATE produtos SET Nome = @nome, Preco = @preco, Categoria = @tipo, Perecivel = @perecivel WHERE Id = @id";
+                conexao.Open();
+                string query = @"UPDATE produto 
+                                 SET nome = @nome, categoria = @cat, peso = @peso, preco_uni = @preco 
+                                 WHERE id_produto = @id";
 
-                    using (MySqlCommand cmd = new MySqlCommand(query, ponte))
-                    {
-                        cmd.Parameters.AddWithValue("@nome", p.NOME);
-                        cmd.Parameters.AddWithValue("@preco", p.PRECO);
-                        cmd.Parameters.AddWithValue("@tipo", p.TIPO);
-                        cmd.Parameters.AddWithValue("@perecivel", p.PERECIVEL);
-                        cmd.Parameters.AddWithValue("@id", p.ID);
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
                 {
-                    throw new Exception("Erro ao atualizar produto: " + ex.Message);
+                    cmd.Parameters.AddWithValue("@nome", p.NOME);
+                    cmd.Parameters.AddWithValue("@cat", p.CATEGORIA);
+                    cmd.Parameters.AddWithValue("@peso", p.PESO);
+                    cmd.Parameters.AddWithValue("@preco", p.PRECO);
+
+                    cmd.Parameters.AddWithValue("@id", p.ID_PRODUTO);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public void ExcluirProduto(int id)
+        public void ExcluirProduto(int idProduto)
         {
-            using (MySqlConnection ponte = new MySqlConnection(Conexao))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-                try
-                {
-                    ponte.Open();
-                    string query = "DELETE FROM produtos WHERE Id = @id";
+                conexao.Open();
+                string query = "DELETE FROM produto WHERE id_produto = @id";
 
-                    using (MySqlCommand cmd = new MySqlCommand(query, ponte))
-                    {
-                        cmd.Parameters.AddWithValue("@id", id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
                 {
-                    throw new Exception("Erro ao excluir produto: " + ex.Message);
+                    cmd.Parameters.AddWithValue("@id", idProduto);
+                    cmd.ExecuteNonQuery();
                 }
             }
-        }
-
-        public List<Produtos> ListarPorTurno(int idTurno)
-        {
-            List<Produtos> listaRetorno = new List<Produtos>();
-
-            using (MySqlConnection ponte = new MySqlConnection(Conexao))
-            {
-                try
-                {
-                    ponte.Open();
-                    string query = "SELECT * FROM produtos WHERE TURNO_ID = @idTurno";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, ponte))
-                    {
-                        cmd.Parameters.AddWithValue("@idTurno", idTurno);
-
-                        using (MySqlDataReader leitor = cmd.ExecuteReader())
-                        {
-                            while (leitor.Read())
-                            {
-                                Produtos p = new Produtos();
-                                p.ID = leitor.GetInt32("Id");
-                                p.NOME = leitor.GetString("Nome");
-                                p.PRECO = leitor.GetDecimal("Preco");
-
-                                // Atenção: O banco devolve a coluna "Categoria", mas sua classe chama "TIPO"
-                                p.TIPO = leitor.GetString("Categoria");
-
-                                p.PERECIVEL = leitor.GetString("Perecivel");
-
-                                listaRetorno.Add(p);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Erro ao listar produtos do turno: " + ex.Message);
-                }
-            }
-            return listaRetorno;
         }
     }
 }

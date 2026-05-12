@@ -95,7 +95,7 @@ namespace DataShift.Menu_Principal
             {
                 ProdutoDAO dao = new ProdutoDAO();
 
-                var lista = dao.ListarPorTurno(Sessao.TurnoId);
+                var lista = dao.ListarParaGrid();
 
                 GridDados.DataSource = lista;
 
@@ -173,12 +173,12 @@ namespace DataShift.Menu_Principal
                     DataShift.Produtos.Produtos produtoEdit = new DataShift.Produtos.Produtos();
 
                     
-                    produtoEdit.ID = Convert.ToInt32(GridDados.CurrentRow.Cells["ID"].Value);
+                    produtoEdit.ID_PRODUTO = Convert.ToInt32(GridDados.CurrentRow.Cells["ID"].Value);
                     produtoEdit.NOME = GridDados.CurrentRow.Cells["NOME"].Value.ToString();
                     produtoEdit.PRECO = Convert.ToDecimal(GridDados.CurrentRow.Cells["PRECO"].Value);
 
-                    produtoEdit.TIPO = GridDados.CurrentRow.Cells["TIPO"].Value.ToString();
-                    produtoEdit.PERECIVEL = GridDados.CurrentRow.Cells["PERECIVEL"].Value.ToString();
+                    produtoEdit.CATEGORIA = GridDados.CurrentRow.Cells["CATEGORIA"].Value.ToString();
+                    produtoEdit.PESO = Convert.ToDecimal(GridDados.CurrentRow.Cells["PESO"].Value);
 
                    
                     CadastroProduto tela = new CadastroProduto();
