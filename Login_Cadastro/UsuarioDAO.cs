@@ -1,69 +1,63 @@
-﻿using System;
-using System.Data;
-using MySql.Data.MySqlClient;
+﻿using DataShift.Login_Cadastro;
+using Npgsql;
+using System;
+using System.Collections.Generic;
 
-namespace DataShift.Login_Cadastro  
+namespace DataShift.Usuarios
 {
     public class UsuarioDAO
     {
-        //String de conexão com banco de dados
-        private string Conexao = "Server=localhost;Database=DataShiftDB;Uid=root;Pwd=senha1234321;";
+        private string stringConexao = "Server=localhost;Port=5432;Database=DataShift;User Id=postgres;Password=12345678;";
 
-        public bool VerificarLogin(Usuario user)
+        public void CadastrarUsuario(Usuario u)
         {
-            using (MySqlConnection ponte = new MySqlConnection(Conexao))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-              
-                try
+                conexao.Open();
+                string query = @"INSERT INTO usuario (nome, email, senha, endereco, cidade, estado, id_turno_usuario) 
+                                VALUES (@nome, @email, @senha, @end, @cid, @est, @idTurno)";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
                 {
-                    //Abre a conexão
-                    ponte.Open();
+                    cmd.Parameters.AddWithValue("@nome", u.Nome);
+                    cmd.Parameters.AddWithValue("@email", u.Email);
+                    cmd.Parameters.AddWithValue("@senha", u.Senha);
 
-                    // Procura email e senha correspondentes
-                    string query = "SELECT * FROM usuarios WHERE email = @email AND senha = @senha";
+                    cmd.Parameters.AddWithValue("@end", string.IsNullOrEmpty(u.Endereco) ? (object)DBNull.Value : u.Endereco);
+                    cmd.Parameters.AddWithValue("@cid", string.IsNullOrEmpty(u.Cidade) ? (object)DBNull.Value : u.Cidade);
+                    cmd.Parameters.AddWithValue("@est", string.IsNullOrEmpty(u.Estado) ? (object)DBNull.Value : u.Estado);
 
-                    //Cria o comando SQL
-                    MySqlCommand cmd = new MySqlCommand(query, ponte);
-                    cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.Parameters.AddWithValue("@senha", user.Senha);
+                    cmd.Parameters.AddWithValue("@idTurno", u.IdTurnoUsuario == 0 ? (object)DBNull.Value : u.IdTurnoUsuario);
 
-                    MySqlDataReader leitor = cmd.ExecuteReader();
-                    return leitor.HasRows;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Erro ao verificar login: " + ex.Message);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public void CadastrarUsuario(Usuario usuario)
+        public bool ValidarLogin(string email, string senha)
         {
-            string conexaoString = "server=localhost;database=DataShiftDB;uid=root;pwd=senha1234321";
-
-            string query = "INSERT INTO usuarios (NOME, EMAIL, SENHA) VALUES (@nome, @email, @senha)";
-
-            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-                try
-                {
-                    conexao.Open();
-                    using (MySqlCommand comando = new MySqlCommand(query, conexao))
-                    {
-                        comando.Parameters.AddWithValue("@nome", usuario.Nome);
-                        comando.Parameters.AddWithValue("@email", usuario.Email);
-                        comando.Parameters.AddWithValue("@senha", usuario.Senha);
+                conexao.Open();
+                string query = "SELECT id_usuario, id_turno_usuario FROM usuario WHERE email = @email AND senha = @senha";
 
-                        comando.ExecuteNonQuery();
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@senha", senha);
+
+                    using (NpgsqlDataReader leitor = cmd.ExecuteReader())
+                    {
+                        if (leitor.Read())
+                        {
+                            Sessao.UsuarioId = leitor.GetInt32(0);
+                            Sessao.TurnoId = leitor.GetInt32(1);
+                            return true;
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    // Se der erro, joga o erro para quem chamou tratar
-                    throw new Exception("Erro ao cadastrar no banco: " + ex.Message);
-                }
             }
+            return false;
         }
-
     }
 }

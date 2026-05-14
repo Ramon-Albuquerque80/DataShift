@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnPerfil = new System.Windows.Forms.Button();
-            this.btnRelatorios = new System.Windows.Forms.Button();
-            this.btnRegistros = new System.Windows.Forms.Button();
+            this.panelMenuEsquerdo = new System.Windows.Forms.Panel();
             this.BtnProdutos = new System.Windows.Forms.Button();
             this.panelTitleBar = new System.Windows.Forms.Panel();
             this.textBoxProcurar = new System.Windows.Forms.TextBox();
@@ -43,28 +40,26 @@
             this.buttonNovo = new System.Windows.Forms.Button();
             this.buttonExcluir = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelMenu.SuspendLayout();
+            this.BtnRelatorio = new System.Windows.Forms.Button();
+            this.panelMenuEsquerdo.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
             this.panelDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridDados)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelMenu
+            // panelMenuEsquerdo
             // 
-            this.panelMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelMenu.Controls.Add(this.label1);
-            this.panelMenu.Controls.Add(this.btnPerfil);
-            this.panelMenu.Controls.Add(this.btnRelatorios);
-            this.panelMenu.Controls.Add(this.btnRegistros);
-            this.panelMenu.Controls.Add(this.BtnProdutos);
-            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelMenu.Margin = new System.Windows.Forms.Padding(4);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(214, 744);
-            this.panelMenu.TabIndex = 0;
+            this.panelMenuEsquerdo.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panelMenuEsquerdo.Controls.Add(this.BtnRelatorio);
+            this.panelMenuEsquerdo.Controls.Add(this.BtnProdutos);
+            this.panelMenuEsquerdo.Controls.Add(this.buttonAdicionar);
+            this.panelMenuEsquerdo.Controls.Add(this.comboTurnos);
+            this.panelMenuEsquerdo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelMenuEsquerdo.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuEsquerdo.Name = "panelMenuEsquerdo";
+            this.panelMenuEsquerdo.Size = new System.Drawing.Size(200, 450);
+            this.panelMenuEsquerdo.TabIndex = 0;
             // 
             // btnPerfil
             // 
@@ -119,7 +114,6 @@
             this.BtnProdutos.Size = new System.Drawing.Size(248, 49);
             this.BtnProdutos.TabIndex = 2;
             this.BtnProdutos.Text = "Produtos";
-            this.BtnProdutos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProdutos.UseVisualStyleBackColor = true;
             this.BtnProdutos.Click += new System.EventHandler(this.BtnProdutos_Click);
             // 
@@ -132,7 +126,7 @@
             this.panelTitleBar.Location = new System.Drawing.Point(214, 0);
             this.panelTitleBar.Margin = new System.Windows.Forms.Padding(4);
             this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(1147, 48);
+            this.panelTitleBar.Size = new System.Drawing.Size(600, 44);
             this.panelTitleBar.TabIndex = 1;
             // 
             // textBoxProcurar
@@ -163,10 +157,9 @@
             this.panelDesktop.Controls.Add(this.GridDados);
             this.panelDesktop.Controls.Add(this.panel1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktop.Location = new System.Drawing.Point(214, 48);
-            this.panelDesktop.Margin = new System.Windows.Forms.Padding(4);
+            this.panelDesktop.Location = new System.Drawing.Point(200, 44);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(1147, 696);
+            this.panelDesktop.Size = new System.Drawing.Size(600, 406);
             this.panelDesktop.TabIndex = 2;
             // 
             // buttonProducao
@@ -192,8 +185,7 @@
             this.GridDados.Location = new System.Drawing.Point(0, 46);
             this.GridDados.Margin = new System.Windows.Forms.Padding(4);
             this.GridDados.Name = "GridDados";
-            this.GridDados.RowHeadersWidth = 51;
-            this.GridDados.Size = new System.Drawing.Size(1152, 658);
+            this.GridDados.Size = new System.Drawing.Size(600, 376);
             this.GridDados.TabIndex = 4;
             this.GridDados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDados_CellClick);
             // 
@@ -246,14 +238,16 @@
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
-            // label1
+            // BtnRelatorio
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
+            this.BtnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRelatorio.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnRelatorio.Location = new System.Drawing.Point(0, 110);
+            this.BtnRelatorio.Name = "BtnRelatorio";
+            this.BtnRelatorio.Size = new System.Drawing.Size(200, 40);
+            this.BtnRelatorio.TabIndex = 3;
+            this.BtnRelatorio.Text = "Relatorios";
+            this.BtnRelatorio.UseVisualStyleBackColor = true;
             // 
             // MainMenu
             // 
@@ -262,13 +256,10 @@
             this.ClientSize = new System.Drawing.Size(1361, 744);
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelTitleBar);
-            this.Controls.Add(this.panelMenu);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Controls.Add(this.panelMenuEsquerdo);
             this.Name = "MainMenu";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DataShift";
-            this.panelMenu.ResumeLayout(false);
-            this.panelMenu.PerformLayout();
+            this.Text = "Data Shift";
+            this.panelMenuEsquerdo.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
             this.panelDesktop.ResumeLayout(false);
@@ -280,7 +271,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.Panel panelMenuEsquerdo;
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.Button BtnProdutos;
@@ -292,9 +283,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView GridDados;
         private System.Windows.Forms.Button buttonProducao;
-        private System.Windows.Forms.Button btnPerfil;
-        private System.Windows.Forms.Button btnRelatorios;
-        private System.Windows.Forms.Button btnRegistros;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BtnRelatorio;
     }
 }

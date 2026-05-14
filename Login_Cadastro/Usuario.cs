@@ -6,16 +6,24 @@ namespace DataShift.Login_Cadastro
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Email { get; set; } // Primeira letra Maiúscula
-        public string Senha { get; set; } // Primeira letra Maiúscula
+        public string Email { get; set; } 
+        public string Senha { get; set; }
+        public string Endereco { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
+        public int IdTurnoUsuario { get; set; }
 
         public Usuario() { }
 
-        public Usuario(string nome, string email, string senha)
+        public Usuario(string Nome, string Email, string Senha, string Endereco, string Cidade, string IdTurnoUsuario)
         {
-            this.Nome = nome;
-            this.Email = email;
-            this.Senha = senha;
+            this.Nome = Nome;
+            this.Email = Email;
+            this.Senha = Senha;
+            this.Endereco = Endereco;
+            this.Cidade = Cidade;
+            this.Estado = Estado;
+            this.IdTurnoUsuario = int.Parse(IdTurnoUsuario);
         }
     }
 }

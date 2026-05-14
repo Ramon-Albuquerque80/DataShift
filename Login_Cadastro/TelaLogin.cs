@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataShift.Usuarios;
 
 namespace DataShift.Login_Cadastro
 {
@@ -83,13 +84,8 @@ namespace DataShift.Login_Cadastro
                 /*
                 UsuarioDAO dao = new UsuarioDAO();
                 Usuario usertemporario = new Usuario();
-                usertemporario.Email = TxtBoxEmail.Text;
-                usertemporario.Senha = TxtBoxSenha.Text;
-                bool loginSucesso = dao.VerificarLogin(usertemporario);
-                */
 
-                // Simulação: Qualquer login será aceito para você conseguir testar as telas
-                bool loginSucesso = true;
+                bool loginSucesso = dao.ValidarLogin(TxtBoxEmail.Text, TxtBoxSenha.Text);
 
                 if (loginSucesso)
                 {

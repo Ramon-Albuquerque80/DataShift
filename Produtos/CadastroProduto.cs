@@ -16,16 +16,11 @@ namespace DataShift.Produtos
 
         public void CarregarDadosParaEdicao(Produtos p)
         {
-            idEdicao = p.ID;
+            idEdicao = p.ID_PRODUTO;
 
             textBoxNome.Text = p.NOME;
             textBoxPreco.Text = p.PRECO.ToString();
-            textBoxCategoria.Text = p.TIPO;
-
-            if (p.PERECIVEL == "Sim")
-                comboBoxPerecivel.SelectedIndex = 0;
-            else
-                comboBoxPerecivel.SelectedIndex = 1;
+            textBoxCategoria.Text = p.CATEGORIA;
 
             this.Text = "Editando Produto";
         }
@@ -49,8 +44,7 @@ namespace DataShift.Produtos
                 Produtos p = new Produtos();
 
                 p.NOME = textBoxNome.Text;
-                p.TIPO = textBoxCategoria.Text;
-                p.PERECIVEL = comboBoxPerecivel.SelectedItem.ToString();
+                p.CATEGORIA = textBoxCategoria.Text;
 
                 if (decimal.TryParse(textBoxPreco.Text, out decimal preco))
                 {
@@ -66,12 +60,12 @@ namespace DataShift.Produtos
 
                 if (idEdicao == 0)
                 {
-                    dao.CadastrarProduto(p, Sessao.TurnoId);
+                    dao.Inserir(p);
                     MessageBox.Show("Produto cadastrado com sucesso!");
                 }
                 else
                 {
-                    p.ID = idEdicao; 
+                    p.ID_PRODUTO = idEdicao; 
                     dao.AtualizarProduto(p);
                     MessageBox.Show("Produto atualizado com sucesso!");
                 }

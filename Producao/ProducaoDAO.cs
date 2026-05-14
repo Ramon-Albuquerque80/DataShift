@@ -1,40 +1,37 @@
-﻿using System;
-using MySql.Data.MySqlClient;
+﻿using Npgsql;
+using System;
 
 namespace DataShift.Producao
 {
+
     public class ProducaoDAO
     {
-        // Use a mesma string de conexão que você já definiu nos outros DAOs
-        private string stringConexao = "server=localhost;database=DataShiftDB;uid=root;pwd=senha1234321";
+ 
+        private string stringConexao = "Server=localhost;Port=5432;Database=DataShift;User Id=postgres;Password=12345678;";
 
         public void RegistrarProducao(Producao p)
         {
-            using (MySqlConnection conexao = new MySqlConnection(stringConexao))
+            using (NpgsqlConnection conexao = new NpgsqlConnection(stringConexao))
             {
-                try
-                {
-                    conexao.Open();
-                    string query = "INSERT INTO producao (PRODUTO_ID, TURNO_ID, QUANTIDADE, INICIO, FIM, TEMPO_TOTAL, DATA_REGISTRO) " +
-                                   "VALUES (@prodId, @turnoId, @qtd, @inicio, @fim, @tempototal, @data)";
+                conexao.Open();
 
-                    using (MySqlCommand cmd = new MySqlCommand(query, conexao))
-                    {
-                        cmd.Parameters.AddWithValue("@prodId", p.ProdutoId);
-                        cmd.Parameters.AddWithValue("@turnoId", p.TurnoId);
-                        cmd.Parameters.AddWithValue("@qtd", p.Quantidade);
-                        cmd.Parameters.AddWithValue("@inicio", p.HoraInicio);
-                        cmd.Parameters.AddWithValue("@fim", p.HoraFim);
-                        cmd.Parameters.AddWithValue("@tempoTotal", p.TempoTotal);
-                        // Usamos p.DataRegistro que foi definida na tela
-                        cmd.Parameters.AddWithValue("@data", p.DataRegistro);
+                string query = @"INSERT INTO registro_producao 
+                            (data_registro, hora_inicio, hora_fim, qtd_produzido, id_produto_registro, id_usuario_registro, id_turno_registro) 
+                            VALUES (@data, @inicio, @fim, @qtd, @idProd, @idUser, @idTurno)";
 
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conexao))
                 {
-                    throw new Exception("Erro ao salvar produção: " + ex.Message);
+                    cmd.Parameters.AddWithValue("@data", p.DataRegistro);
+                    cmd.Parameters.AddWithValue("@inicio", p.HoraInicio);
+                    cmd.Parameters.AddWithValue("@fim", p.HoraFim);
+                    cmd.Parameters.AddWithValue("@qtd", p.QtdProduzido);
+
+                    // Inserindo as Chaves Estrangeiras
+                    cmd.Parameters.AddWithValue("@idProd", p.IdProdutoRegistro);
+                    cmd.Parameters.AddWithValue("@idUser", p.IdUsuarioRegistro);
+                    cmd.Parameters.AddWithValue("@idTurno", p.IdTurnoRegistro);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
