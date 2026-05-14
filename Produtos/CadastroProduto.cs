@@ -98,5 +98,10 @@ namespace DataShift.Produtos
         {
             this.Close();
         }
+
+        private void labelRegistro_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

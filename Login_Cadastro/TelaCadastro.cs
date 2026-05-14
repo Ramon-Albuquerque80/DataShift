@@ -110,6 +110,9 @@ namespace DataShift.Login_Cadastro
 
         }
 
+        private void LabelPergunta_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

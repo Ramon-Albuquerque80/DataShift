@@ -120,6 +120,12 @@
     <Compile Include="Menu Principal\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Perfil\Tela_Perfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Perfil\Tela_Perfil.Designer.cs">
+      <DependentUpon>Tela_Perfil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Producao\CadastroProducao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,11 @@
     <Compile Include="Produtos\Produtos.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Relatorios\DadosDetalhados.cs" />
     <Compile Include="Relatorios\Grafico.cs" />
     <Compile Include="Relatorios\RelatorioAnalitico.cs" />
@@ -167,11 +178,18 @@
     <EmbeddedResource Include="Menu Principal\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Perfil\Tela_Perfil.resx">
+      <DependentUpon>Tela_Perfil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Producao\CadastroProducao.resx">
       <DependentUpon>CadastroProducao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Produtos\CadastroProduto.resx">
       <DependentUpon>CadastroProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Turnos\CadastroTurno.resx">
       <DependentUpon>CadastroTurno.cs</DependentUpon>

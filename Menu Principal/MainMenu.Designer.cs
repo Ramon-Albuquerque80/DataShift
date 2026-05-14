@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnPerfil = new System.Windows.Forms.Button();
+            this.btnRelatorios = new System.Windows.Forms.Button();
+            this.btnRegistros = new System.Windows.Forms.Button();
             this.BtnProdutos = new System.Windows.Forms.Button();
-            this.buttonAdicionar = new System.Windows.Forms.Button();
-            this.comboTurnos = new System.Windows.Forms.ComboBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
             this.textBoxProcurar = new System.Windows.Forms.TextBox();
             this.buttonProcurar = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.buttonNovo = new System.Windows.Forms.Button();
             this.buttonExcluir = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelMenu.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
             this.panelDesktop.SuspendLayout();
@@ -51,75 +53,105 @@
             // 
             // panelMenu
             // 
-            this.panelMenu.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panelMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelMenu.Controls.Add(this.label1);
+            this.panelMenu.Controls.Add(this.btnPerfil);
+            this.panelMenu.Controls.Add(this.btnRelatorios);
+            this.panelMenu.Controls.Add(this.btnRegistros);
             this.panelMenu.Controls.Add(this.BtnProdutos);
-            this.panelMenu.Controls.Add(this.buttonAdicionar);
-            this.panelMenu.Controls.Add(this.comboTurnos);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Margin = new System.Windows.Forms.Padding(4);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(200, 450);
+            this.panelMenu.Size = new System.Drawing.Size(214, 744);
             this.panelMenu.TabIndex = 0;
+            // 
+            // btnPerfil
+            // 
+            this.btnPerfil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPerfil.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnPerfil.Location = new System.Drawing.Point(0, 680);
+            this.btnPerfil.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPerfil.Name = "btnPerfil";
+            this.btnPerfil.Size = new System.Drawing.Size(248, 49);
+            this.btnPerfil.TabIndex = 5;
+            this.btnPerfil.Text = "Perfil";
+            this.btnPerfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPerfil.UseVisualStyleBackColor = true;
+            this.btnPerfil.Click += new System.EventHandler(this.btnPerfil_Click);
+            // 
+            // btnRelatorios
+            // 
+            this.btnRelatorios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorios.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRelatorios.Location = new System.Drawing.Point(0, 252);
+            this.btnRelatorios.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRelatorios.Name = "btnRelatorios";
+            this.btnRelatorios.Size = new System.Drawing.Size(248, 49);
+            this.btnRelatorios.TabIndex = 4;
+            this.btnRelatorios.Text = "Relatórios";
+            this.btnRelatorios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRelatorios.UseVisualStyleBackColor = true;
+            this.btnRelatorios.Click += new System.EventHandler(this.btnRelatorios_Click);
+            // 
+            // btnRegistros
+            // 
+            this.btnRegistros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistros.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRegistros.Location = new System.Drawing.Point(0, 172);
+            this.btnRegistros.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegistros.Name = "btnRegistros";
+            this.btnRegistros.Size = new System.Drawing.Size(248, 49);
+            this.btnRegistros.TabIndex = 3;
+            this.btnRegistros.Text = "Registros";
+            this.btnRegistros.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegistros.UseVisualStyleBackColor = true;
+            this.btnRegistros.Click += new System.EventHandler(this.btnRegistros_Click);
             // 
             // BtnProdutos
             // 
             this.BtnProdutos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnProdutos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnProdutos.Location = new System.Drawing.Point(0, 27);
+            this.BtnProdutos.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BtnProdutos.Location = new System.Drawing.Point(0, 92);
+            this.BtnProdutos.Margin = new System.Windows.Forms.Padding(4);
             this.BtnProdutos.Name = "BtnProdutos";
-            this.BtnProdutos.Size = new System.Drawing.Size(200, 40);
+            this.BtnProdutos.Size = new System.Drawing.Size(248, 49);
             this.BtnProdutos.TabIndex = 2;
             this.BtnProdutos.Text = "Produtos";
             this.BtnProdutos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProdutos.UseVisualStyleBackColor = true;
             this.BtnProdutos.Click += new System.EventHandler(this.BtnProdutos_Click);
             // 
-            // buttonAdicionar
-            // 
-            this.buttonAdicionar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonAdicionar.ForeColor = System.Drawing.Color.Teal;
-            this.buttonAdicionar.Location = new System.Drawing.Point(178, 0);
-            this.buttonAdicionar.Name = "buttonAdicionar";
-            this.buttonAdicionar.Size = new System.Drawing.Size(22, 21);
-            this.buttonAdicionar.TabIndex = 1;
-            this.buttonAdicionar.Text = "+";
-            this.buttonAdicionar.UseVisualStyleBackColor = true;
-            this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
-            // 
-            // comboTurnos
-            // 
-            this.comboTurnos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.comboTurnos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboTurnos.FormattingEnabled = true;
-            this.comboTurnos.Location = new System.Drawing.Point(0, 0);
-            this.comboTurnos.Name = "comboTurnos";
-            this.comboTurnos.Size = new System.Drawing.Size(178, 21);
-            this.comboTurnos.TabIndex = 0;
-            this.comboTurnos.SelectedIndexChanged += new System.EventHandler(this.ComboTurnos_SelectedIndexChanged);
-            // 
             // panelTitleBar
             // 
-            this.panelTitleBar.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panelTitleBar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelTitleBar.Controls.Add(this.textBoxProcurar);
             this.panelTitleBar.Controls.Add(this.buttonProcurar);
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitleBar.Location = new System.Drawing.Point(200, 0);
+            this.panelTitleBar.Location = new System.Drawing.Point(214, 0);
+            this.panelTitleBar.Margin = new System.Windows.Forms.Padding(4);
             this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(600, 80);
+            this.panelTitleBar.Size = new System.Drawing.Size(1147, 48);
             this.panelTitleBar.TabIndex = 1;
             // 
             // textBoxProcurar
             // 
-            this.textBoxProcurar.Location = new System.Drawing.Point(6, 12);
+            this.textBoxProcurar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxProcurar.Location = new System.Drawing.Point(20, 12);
+            this.textBoxProcurar.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxProcurar.Name = "textBoxProcurar";
-            this.textBoxProcurar.Size = new System.Drawing.Size(188, 20);
+            this.textBoxProcurar.Size = new System.Drawing.Size(973, 22);
             this.textBoxProcurar.TabIndex = 4;
             // 
             // buttonProcurar
             // 
-            this.buttonProcurar.Location = new System.Drawing.Point(200, 12);
+            this.buttonProcurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProcurar.Location = new System.Drawing.Point(1020, 8);
+            this.buttonProcurar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonProcurar.Name = "buttonProcurar";
-            this.buttonProcurar.Size = new System.Drawing.Size(75, 23);
+            this.buttonProcurar.Size = new System.Drawing.Size(100, 32);
             this.buttonProcurar.TabIndex = 3;
             this.buttonProcurar.Text = "Pesquisar";
             this.buttonProcurar.UseVisualStyleBackColor = true;
@@ -131,59 +163,72 @@
             this.panelDesktop.Controls.Add(this.GridDados);
             this.panelDesktop.Controls.Add(this.panel1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktop.Location = new System.Drawing.Point(200, 80);
+            this.panelDesktop.Location = new System.Drawing.Point(214, 48);
+            this.panelDesktop.Margin = new System.Windows.Forms.Padding(4);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(600, 370);
+            this.panelDesktop.Size = new System.Drawing.Size(1147, 696);
             this.panelDesktop.TabIndex = 2;
             // 
             // buttonProducao
             // 
-            this.buttonProducao.Location = new System.Drawing.Point(480, 337);
+            this.buttonProducao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProducao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonProducao.Location = new System.Drawing.Point(900, 624);
+            this.buttonProducao.Margin = new System.Windows.Forms.Padding(4);
             this.buttonProducao.Name = "buttonProducao";
-            this.buttonProducao.Size = new System.Drawing.Size(108, 21);
+            this.buttonProducao.Size = new System.Drawing.Size(232, 58);
             this.buttonProducao.TabIndex = 5;
-            this.buttonProducao.Text = "Adicionar produção";
+            this.buttonProducao.Text = "Registrar Produção";
             this.buttonProducao.UseVisualStyleBackColor = true;
             this.buttonProducao.Click += new System.EventHandler(this.buttonProducao_Click);
             // 
             // GridDados
             // 
-            this.GridDados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.GridDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GridDados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.GridDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridDados.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GridDados.Location = new System.Drawing.Point(0, 30);
+            this.GridDados.Location = new System.Drawing.Point(0, 46);
+            this.GridDados.Margin = new System.Windows.Forms.Padding(4);
             this.GridDados.Name = "GridDados";
-            this.GridDados.Size = new System.Drawing.Size(600, 340);
+            this.GridDados.RowHeadersWidth = 51;
+            this.GridDados.Size = new System.Drawing.Size(1152, 658);
             this.GridDados.TabIndex = 4;
             this.GridDados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDados_CellClick);
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.buttonNovo);
             this.panel1.Controls.Add(this.buttonExcluir);
             this.panel1.Controls.Add(this.buttonEditar);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(600, 30);
+            this.panel1.Size = new System.Drawing.Size(1147, 44);
             this.panel1.TabIndex = 3;
             // 
             // buttonNovo
             // 
-            this.buttonNovo.Location = new System.Drawing.Point(513, 4);
+            this.buttonNovo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNovo.Location = new System.Drawing.Point(772, 8);
+            this.buttonNovo.Margin = new System.Windows.Forms.Padding(4);
             this.buttonNovo.Name = "buttonNovo";
-            this.buttonNovo.Size = new System.Drawing.Size(75, 23);
+            this.buttonNovo.Size = new System.Drawing.Size(160, 28);
             this.buttonNovo.TabIndex = 0;
-            this.buttonNovo.Text = "Adicionar";
+            this.buttonNovo.Text = "Adicionar Produto";
             this.buttonNovo.UseVisualStyleBackColor = true;
             this.buttonNovo.Click += new System.EventHandler(this.buttonNovo_Click);
             // 
             // buttonExcluir
             // 
-            this.buttonExcluir.Location = new System.Drawing.Point(351, 4);
+            this.buttonExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExcluir.Location = new System.Drawing.Point(1040, 8);
+            this.buttonExcluir.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExcluir.Name = "buttonExcluir";
-            this.buttonExcluir.Size = new System.Drawing.Size(75, 23);
+            this.buttonExcluir.Size = new System.Drawing.Size(100, 28);
             this.buttonExcluir.TabIndex = 1;
             this.buttonExcluir.Text = "Excluir";
             this.buttonExcluir.UseVisualStyleBackColor = true;
@@ -191,25 +236,39 @@
             // 
             // buttonEditar
             // 
-            this.buttonEditar.Location = new System.Drawing.Point(432, 4);
+            this.buttonEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEditar.Location = new System.Drawing.Point(936, 8);
+            this.buttonEditar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEditar.Name = "buttonEditar";
-            this.buttonEditar.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditar.Size = new System.Drawing.Size(100, 28);
             this.buttonEditar.TabIndex = 2;
             this.buttonEditar.Text = "Editar";
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(84, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "label1";
+            // 
             // MainMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1361, 744);
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.panelMenu);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainMenu";
-            this.Text = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "DataShift";
             this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
             this.panelDesktop.ResumeLayout(false);
@@ -224,8 +283,6 @@
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Panel panelDesktop;
-        private System.Windows.Forms.ComboBox comboTurnos;
-        private System.Windows.Forms.Button buttonAdicionar;
         private System.Windows.Forms.Button BtnProdutos;
         private System.Windows.Forms.Button buttonNovo;
         private System.Windows.Forms.TextBox textBoxProcurar;
@@ -235,5 +292,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView GridDados;
         private System.Windows.Forms.Button buttonProducao;
+        private System.Windows.Forms.Button btnPerfil;
+        private System.Windows.Forms.Button btnRelatorios;
+        private System.Windows.Forms.Button btnRegistros;
+        private System.Windows.Forms.Label label1;
     }
 }

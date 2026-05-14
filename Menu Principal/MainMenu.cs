@@ -15,14 +15,21 @@ namespace DataShift.Menu_Principal
 {
     public partial class MainMenu : Form
     {
-
         private string contextoAtual = "";
+        private int IdSelecionada = 0;
+
+        // MOCK: Dados temporários para teste offline
+        private List<object> produtosMock = new List<object>
+        {
+            new { ID = 1, NOME = "Esfiha de Carne", PRECO = 5.50, CATEGORIA = "Salgados", PESO = 0.100 },
+            new { ID = 2, NOME = "Bolo de Chocolate", PRECO = 35.00, CATEGORIA = "Doces", PESO = 1.200 },
+            new { ID = 3, NOME = "Cookie", PRECO = 4.00, CATEGORIA = "Biscoitos", PESO = 0.050 }
+        };
+
         public MainMenu()
         {
             InitializeComponent();
             ConfigurarJanela();
-            CarregarTurnos();
-           
         }
 
         public void ConfigurarJanela()
@@ -31,181 +38,123 @@ namespace DataShift.Menu_Principal
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.StartPosition = FormStartPosition.CenterScreen;
-        }   
-
-        public void CarregarTurnos()
-        {
-            try
-            {
-                TurnoDAO dao = new TurnoDAO();
-                List<Turno> Turnos = dao.ListarTodos();
-
-                comboTurnos.DataSource = Turnos;
-                comboTurnos.DisplayMember = "Periodo";
-                comboTurnos.ValueMember = "Id";
-
-                comboTurnos.SelectedIndexChanged += ComboTurnos_SelectedIndexChanged;
-
-                ComboTurnos_SelectedIndexChanged(null, null);
-
-                if (comboTurnos.Items.Count > 0)
-                {
-                    ComboTurnos_SelectedIndexChanged(null, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar turnos: " + ex.Message);
-            }
-
-
+            buttonProducao.Visible = false;
         }
 
-        private void ComboTurnos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(comboTurnos.SelectedItem is Turno turnoSelecionado)
-            {
-                Sessao.TurnoId = turnoSelecionado.Id;
-                Sessao.TurnoNome = turnoSelecionado.Periodo;
+        // --- NAVEGAÇÃO DO MENU LATERAL ---
 
-                if (contextoAtual == "Produtos") BtnProdutos_Click(null, null);
-            }
-        }
-
-        private void buttonAdicionar_Click(object sender, EventArgs e)
-        {
-            CadastroTurno tela = new CadastroTurno();
-
-            tela.ShowDialog();
-
-            CarregarTurnos();
-        }
-
-        private void BtnProdutos_Click(object sender, EventArgs e)
+        public void BtnProdutos_Click(object sender, EventArgs e)
         {
             contextoAtual = "Produtos";
 
-            if(Sessao.TurnoId == 0)
+            // Limpa o Grid e reseta seleção
+            GridDados.DataSource = null;
+            IdSelecionada = 0;
+
+            // Configura o botão
+            buttonProducao.Text = "Registrar Produção";
+            buttonProducao.Visible = true;
+
+            // Carrega os dados mockados
+            GridDados.DataSource = produtosMock;
+
+            if (GridDados.Columns["ID"] != null) GridDados.Columns["ID"].Visible = false;
+
+            // Mostra botões de gerenciamento
+            buttonNovo.Visible = true;
+            buttonEditar.Visible = true;
+            buttonExcluir.Visible = true;
+        }
+
+        public void btnRegistros_Click(object sender, EventArgs e)
+        {
+            contextoAtual = "Registros";
+
+            // Limpa tudo do contexto anterior
+            GridDados.DataSource = null;
+            IdSelecionada = 0;
+
+            // Muda o botão
+            buttonProducao.Text = "Gerar Relatório";
+            buttonProducao.Visible = true;
+
+            // Esconde botões de produto
+            buttonNovo.Visible = false;
+            buttonEditar.Visible = false;
+            buttonExcluir.Visible = false;
+        }
+
+        public void btnRelatorios_Click(object sender, EventArgs e)
+        {
+            contextoAtual = "Relatorios";
+
+            // Limpa tudo
+            GridDados.DataSource = null;
+            IdSelecionada = 0;
+
+            // Muda o botão
+            buttonProducao.Text = "Baixar Arquivo";
+            buttonProducao.Visible = true;
+
+            buttonNovo.Visible = false;
+            buttonEditar.Visible = false;
+            buttonExcluir.Visible = false;
+        }
+
+        public void btnPerfil_Click(object sender, EventArgs e)
+        {
+            DataShift.Perfil.Tela_Perfil tela = new DataShift.Perfil.Tela_Perfil();
+            tela.ShowDialog();
+        }
+
+        // --- AÇÃO DO BOTÃO DINÂMICO ---
+
+        private void buttonProducao_Click(object sender, EventArgs e)
+        {
+            switch (contextoAtual)
             {
-                MessageBox.Show("Selecione um turno!");
-                return;
-            }
-
-            try
-            {
-                ProdutoDAO dao = new ProdutoDAO();
-
-                var lista = dao.ListarPorTurno(Sessao.TurnoId);
-
-                GridDados.DataSource = lista;
-
-                if (GridDados.Columns["ID"] != null) GridDados.Columns["ID"].Visible = false;
-                if (GridDados.Columns["Turno_ID"] != null) GridDados.Columns["Turno_ID"].Visible = false;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar produtos: " + ex.Message);
+                case "Produtos":
+                    if (IdSelecionada == 0 || GridDados.CurrentRow == null)
+                    {
+                        MessageBox.Show("Selecione um produto na tabela!");
+                        return;
+                    }
+                    CadastroProducao telaProd = new CadastroProducao(IdSelecionada, GridDados.CurrentRow.Cells["NOME"].Value.ToString());
+                    telaProd.ShowDialog();
+                    break;
+                case "Registros":
+                    Form fCal = new Form { Text = "Período", Size = new Size(250, 250), StartPosition = FormStartPosition.CenterParent };
+                    MonthCalendar cal = new MonthCalendar { Dock = DockStyle.Fill };
+                    fCal.Controls.Add(cal);
+                    fCal.ShowDialog();
+                    break;
+                case "Relatorios":
+                    MessageBox.Show("Iniciando download...");
+                    break;
             }
         }
 
+        private void GridDados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                IdSelecionada = Convert.ToInt32(GridDados.Rows[e.RowIndex].Cells["ID"].Value);
+            }
+        }
+
+        // Métodos de botões de topo (Editar/Excluir/Novo)
+        private void buttonEditar_Click(object sender, EventArgs e) { MessageBox.Show("Editar: " + IdSelecionada); }
+        private void buttonExcluir_Click(object sender, EventArgs e) { MessageBox.Show("Excluir: " + IdSelecionada); }
         private void buttonNovo_Click(object sender, EventArgs e)
         {
             if (contextoAtual == "Produtos")
             {
-                if (Sessao.TurnoId == 0)
-                {
-                    MessageBox.Show("Selecione um turno!");
-                    return;
-                }
-
-                CadastroProduto tela = new CadastroProduto();
-                tela.ShowDialog();
-
+                new CadastroProduto().ShowDialog();
                 BtnProdutos_Click(null, null);
             }
         }
 
-        private int IdSelecionada = 0;
-
-        private void GridDados_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(e.RowIndex >= 0)
-            {
-               IdSelecionada = Convert.ToInt32(GridDados.Rows[e.RowIndex].Cells["ID"].Value);
-            }
-        }
-
-        private void buttonExcluir_Click(object sender, EventArgs e)
-        {
-            if (IdSelecionada == 0)
-            {
-                MessageBox.Show("Selecione um item na tabela primeiro.");
-                return;
-            }
-
-            if (contextoAtual == "Produtos")
-            {
-                if (MessageBox.Show("Deseja excluir?", "Atenção", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    ProdutoDAO dao = new ProdutoDAO();
-                    dao.ExcluirProduto(IdSelecionada);
-
-                    BtnProdutos_Click(null, null);
-                    IdSelecionada = 0;
-                }
-            }
-        }
-
-        private void buttonEditar_Click(object sender, EventArgs e)
-        {
-            if (IdSelecionada == 0)
-            {
-                MessageBox.Show("Selecione um produto na tabela para editar.");
-                return;
-            }
-
-            if (contextoAtual == "Produtos")
-            {
-                
-                if (GridDados.CurrentRow != null)
-                {
-                    
-                    DataShift.Produtos.Produtos produtoEdit = new DataShift.Produtos.Produtos();
-
-                    
-                    produtoEdit.ID = Convert.ToInt32(GridDados.CurrentRow.Cells["ID"].Value);
-                    produtoEdit.NOME = GridDados.CurrentRow.Cells["NOME"].Value.ToString();
-                    produtoEdit.PRECO = Convert.ToDecimal(GridDados.CurrentRow.Cells["PRECO"].Value);
-
-                    produtoEdit.TIPO = GridDados.CurrentRow.Cells["TIPO"].Value.ToString();
-                    produtoEdit.PERECIVEL = GridDados.CurrentRow.Cells["PERECIVEL"].Value.ToString();
-
-                   
-                    CadastroProduto tela = new CadastroProduto();
-
-                   
-                    tela.CarregarDadosParaEdicao(produtoEdit);
-
-                    tela.ShowDialog();
-
-                   
-                    BtnProdutos_Click(null, null);
-                    IdSelecionada = 0;
-                }
-            }
-        }
-
-        private void buttonProducao_Click(object sender, EventArgs e)
-        {
-           
-            if (IdSelecionada == 0 || GridDados.CurrentRow == null)
-            {
-                MessageBox.Show("Por favor, selecione um produto na tabela primeiro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            CadastroProducao TelaRegistro = new CadastroProducao(IdSelecionada, GridDados.CurrentRow.Cells["NOME"].Value.ToString());
-            TelaRegistro.ShowDialog();
-        }
+        private void MainMenu_Load(object sender, EventArgs e) { }
+        private void GridDados_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
     }
 }

@@ -9,23 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DataShift.Login_Cadastro
-{ 
-
+{
     public partial class TelaLogin : Form
     {
         public TelaLogin()
         {
             InitializeComponent();
-
             ConfigurarPlaceholders();
         }
 
         private void ConfigurarPlaceholders()
         {
-
             TxtBoxEmail.Text = "Digite seu E-mail";
             TxtBoxEmail.ForeColor = Color.Gray;
-
 
             TxtBoxSenha.Text = "Digite sua Senha";
             TxtBoxSenha.ForeColor = Color.Gray;
@@ -34,24 +30,20 @@ namespace DataShift.Login_Cadastro
 
         private void TxtBoxEmail_Enter(object sender, EventArgs e)
         {
-
             if (TxtBoxEmail.Text == "Digite seu E-mail")
             {
                 TxtBoxEmail.Text = "";
                 TxtBoxEmail.ForeColor = Color.Black;
             }
-
         }
 
         private void TxtBoxEmail_Leave(object sender, EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(TxtBoxEmail.Text))
             {
                 TxtBoxEmail.Text = "Digite seu E-mail";
                 TxtBoxEmail.ForeColor = Color.Gray;
             }
-
         }
 
         private void TxtBoxSenha_Enter(object sender, EventArgs e)
@@ -76,8 +68,9 @@ namespace DataShift.Login_Cadastro
 
         private void BotaoConfirmar_Click(object sender, EventArgs e)
         {
-
-            if (TxtBoxEmail.Text == "Digite seu E-mail" || string.IsNullOrWhiteSpace(TxtBoxEmail.Text) || TxtBoxSenha.Text == "Digite sua Senha" || string.IsNullOrWhiteSpace(TxtBoxSenha.Text))
+            // Validação básica de campos vazios (mantida)
+            if (TxtBoxEmail.Text == "Digite seu E-mail" || string.IsNullOrWhiteSpace(TxtBoxEmail.Text) ||
+                TxtBoxSenha.Text == "Digite sua Senha" || string.IsNullOrWhiteSpace(TxtBoxSenha.Text))
             {
                 MessageBox.Show("Preencha todos os campos!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -85,23 +78,29 @@ namespace DataShift.Login_Cadastro
 
             try
             {
-
+                // --- MOCK DE LOGIN PARA TESTE OFFLINE ---
+                // Comentamos a chamada ao banco de dados para evitar o erro de conexão
+                /*
                 UsuarioDAO dao = new UsuarioDAO();
                 Usuario usertemporario = new Usuario();
-
                 usertemporario.Email = TxtBoxEmail.Text;
                 usertemporario.Senha = TxtBoxSenha.Text;
-
                 bool loginSucesso = dao.VerificarLogin(usertemporario);
+                */
+
+                // Simulação: Qualquer login será aceito para você conseguir testar as telas
+                bool loginSucesso = true;
 
                 if (loginSucesso)
                 {
+                    // Define dados fictícios na Sessão se necessário
+                    // Sessao.UsuarioNome = "Carol Borba";
 
                     DataShift.Menu_Principal.MainMenu Tela = new DataShift.Menu_Principal.MainMenu();
                     Tela.Show();
                     this.Hide();
 
-                    MessageBox.Show("Bem Vindo!");
+                    MessageBox.Show("Bem Vindo (Modo de Teste)!");
                 }
                 else
                 {
@@ -110,19 +109,18 @@ namespace DataShift.Login_Cadastro
             }
             catch (Exception ex)
             {
-                
-                MessageBox.Show("Erro ao conectar no banco de dados: " + ex.Message);
+                MessageBox.Show("Erro (Mock): " + ex.Message);
             }
         }
 
         private void LinkCadastro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             TelaCadastro tela = new TelaCadastro();
-
             tela.Show();
-
             this.Hide();
         }
 
+        private void LabelLogin_Click(object sender, EventArgs e) { }
+        private void TelaLogin_Load(object sender, EventArgs e) { }
     }
 }
